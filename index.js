@@ -22,13 +22,31 @@ app.use(bodyParser.json())
 
 app.get('/api/products', (req, res) => {
 
-	res.status(200).send({ products: [] })
+	Product.find({}, (err, products) => {
+
+		if(err) return res.status(500).send({ message: `Saving product ERROR => ${err}` })
+
+		if (!products) return res.status(404).send({ message: `There is no products` })
+
+		res.status(200).send({ products })
+
+	})
 
 })
 
 app.get('/api/product/:productId', (req, res) => {
 
+	let productId = req.params.productId
 
+	Product.findById(productId, (err, product) => {
+
+		if (err) return res.status(500).send({ message: `Saving product ERROR => ${err}` })
+
+		if (!product) return res.status(404).send({ message: `The product doesn't exist` })
+
+		return res.status(200).send({ product })
+
+	})
 
 })
 
