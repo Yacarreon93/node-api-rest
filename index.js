@@ -4,9 +4,9 @@ const mongoose = require('mongoose')
 
 const app = require('./app')
 
-const port = process.env.PORT || 3000
+const config = require('./config')
 
-mongoose.connect('mongodb://localhost:27017/e-commerce', (err, res) => {
+mongoose.connect(config.db, (err, res) => {
 
 	if (err) {
 
@@ -16,9 +16,9 @@ mongoose.connect('mongodb://localhost:27017/e-commerce', (err, res) => {
 
 	console.log("Connection to database stablished!")
 	
-	app.listen(port, () => {
+	app.listen(config.port, () => {
 
-		console.log(`API REST runs on http://localhost:${port}`)
+		console.log(`API REST runs on http://localhost:${config.port}`)
 
 	})
 
