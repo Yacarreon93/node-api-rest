@@ -2,6 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -47,8 +48,20 @@ app.delete('/api/product/:productId', (req, res) => {
 	
 })
 
-app.listen(port, () => {
+mongoose.connect('mongodb://localhost:27017/e-commerce', (err, res) => {
 
-	console.log(`API REST runs on http://localhost:${port}`)
+	if(err) {
+
+		console.log(`Connection ERROR: ${err}`)
+
+	}
+
+	console.log("Connection to database stablished!")
+	
+	app.listen(port, () => {
+
+		console.log(`API REST runs on http://localhost:${port}`)
+
+	})
 
 })
